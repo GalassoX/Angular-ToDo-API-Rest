@@ -5,6 +5,7 @@ import { TaskService } from './Service/task.service';
 import { TaskAddComponent } from './Task/add/taskadd.component';
 import { DeleteComponent } from './Task/delete/delete.component';
 import { EditComponent } from './Task/edit/edit.component';
+import { ViewComponent } from './Task/view/view.component';
 
 @Component({
   selector: 'app-root',
@@ -50,6 +51,12 @@ export class AppComponent implements OnInit {
         this.fetchTasks();
       });
     });
+  }
+
+  viewTask(id: string) {
+    const task = this.data.find(t => t.id === id);
+    if (!task) return;
+    this.dialog.open(ViewComponent, { data: task });
   }
 
   editTask(id: string) {
