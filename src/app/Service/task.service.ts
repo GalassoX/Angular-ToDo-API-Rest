@@ -22,25 +22,25 @@ export class TaskService {
   url = 'http://localhost:8080/tasks';
 
   getTasks() {
-    return this.http.get<HttpResponse<ITask[]>>(this.url);
+    return this.http.get<ITask[]>(this.url, { observe: 'response' });
   }
 
   getTaskById(id: string) {
-    return this.http.get<HttpResponse<ITask>>(`${this.url}/${id}`);
+    return this.http.get<ITask>(`${this.url}/${id}`, { observe: 'response' });
   }
 
   createTask(body: IBodyCreateTask) {
     if (!body || !body.title || !body.description) {
       return null;
     }
-    return this.http.post<HttpResponse<ICreatedTask>>(this.url, body);
+    return this.http.post<ICreatedTask>(this.url, body, { observe: 'response' });
   }
 
   editTask(id: string, body: IBodyCreateTask) {
-    return this.http.put<HttpResponse<ICreatedTask>>(`${this.url}/${id}`, body);
+    return this.http.put<ICreatedTask>(`${this.url}/${id}`, body, { observe: 'response' });
   }
 
   deleteTask(id: string) {
-    return this.http.delete<HttpResponse<{ message: string }>>(`${this.url}/${id}`);
+    return this.http.delete<{ message: string }>(`${this.url}/${id}`, { observe: 'response' });
   }
 }
