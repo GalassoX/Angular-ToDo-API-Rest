@@ -16,6 +16,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { TaskAddComponent } from './Task/add/taskadd.component';
 import { DeleteComponent } from './Task/delete/delete.component';
 import { HttpClientModule } from '@angular/common/http';
+import { TaskService } from './Service/task.service';
 
 @NgModule({
   declarations: [
@@ -37,7 +38,7 @@ import { HttpClientModule } from '@angular/common/http';
     FormsModule,
     ReactiveFormsModule,
   ],
-  providers: [],
+  providers: [TaskService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

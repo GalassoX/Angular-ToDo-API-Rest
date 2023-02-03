@@ -30,15 +30,8 @@ export class TaskService {
   }
 
   createTask(body: IBodyCreateTask) {
-    const errors: string[] = [];
-    if (!body.title) {
-      errors.push('Invalid title');
-    }
-    if (!body.description) {
-      errors.push('Invalid description');
-    }
-    if (errors.length) {
-      return errors;
+    if (!body || !body.title || !body.description) {
+      return null;
     }
     return this.http.post<ICreatedTask>(this.url, body);
   }

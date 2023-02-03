@@ -32,7 +32,11 @@ export class AppComponent implements OnInit {
   ngOnInit() {
     this.service.getTasks()
       .subscribe(data => {
-        this.data = data;
+        this.data = data.map(d => ({
+          ...d,
+          createdAt: new Date(d.createdAt),
+          updatedAt: new Date(d.updatedAt)
+        }));
       });
   }
 
@@ -54,6 +58,12 @@ export class AppComponent implements OnInit {
         title: this.newTaskTitle,
         description: this.newTaskDescription
       });
+
+      if (!created) return;
+      created.subscribe(() => {
+        window.location.reload();
+      });
+
       console.log(created);
     });
   }
