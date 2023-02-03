@@ -4,6 +4,7 @@ import { ITask } from './models/Task';
 import { TaskService } from './Service/task.service';
 import { TaskAddComponent } from './Task/add/taskadd.component';
 import { DeleteComponent } from './Task/delete/delete.component';
+import { EditComponent } from './Task/edit/edit.component';
 
 const DATA: ITask[] = [
   { id: "5as651c6a", title: "Test", description: "Description", createdAt: new Date(), updatedAt: new Date() },
@@ -31,15 +32,7 @@ export class AppComponent implements OnInit {
   constructor(private service: TaskService, public dialog: MatDialog) { }
 
   ngOnInit() {
-    this.service.getTasks()
-      .subscribe(data => {
-        if (!data.body) return;
-        this.data = data.body.map(d => ({
-          ...d,
-          createdAt: new Date(d.createdAt),
-          updatedAt: new Date(d.updatedAt)
-        }));
-      });
+    this.fetchTasks();
   }
 
   openDialogCreateTask(): void {
@@ -71,6 +64,22 @@ export class AppComponent implements OnInit {
   }
 
   editTask(id: string) {
+    const dialogRef = this.dialog.open(EditComponent, {
+      data: {
+        title: '',
+        description: ''
+      }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (!result) return;
+
+      this.service.editTask(id, result).subscribe(result => {
+        if (result.status == 200) {
+          this.fetchTasks();
+        }
+      });
+    });
 
   }
 
@@ -86,6 +95,18 @@ export class AppComponent implements OnInit {
         }
       });
     });
+  }
 
+
+  private fetchTasks() {
+    this.service.getTasks()
+      .subscribe(data => {
+        if (!data.body) return;
+        this.data = data.body.map(d => ({
+          ...d,
+          createdAt: new Date(d.createdAt),
+          updatedAt: new Date(d.updatedAt)
+        }));
+      });
   }
 }
