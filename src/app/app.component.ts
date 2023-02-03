@@ -6,14 +6,6 @@ import { TaskAddComponent } from './Task/add/taskadd.component';
 import { DeleteComponent } from './Task/delete/delete.component';
 import { EditComponent } from './Task/edit/edit.component';
 
-const DATA: ITask[] = [
-  { id: "5as651c6a", title: "Test", description: "Description", createdAt: new Date(), updatedAt: new Date() },
-  { id: "5as651c6a", title: "Test", description: "Description", createdAt: new Date(), updatedAt: new Date() },
-  { id: "5as651c6a", title: "Test", description: "Description", createdAt: new Date(), updatedAt: new Date() },
-  { id: "5as651c6a", title: "Test", description: "Description", createdAt: new Date(), updatedAt: new Date() },
-  { id: "5as651c6a", title: "Test", description: "Description", createdAt: new Date(), updatedAt: new Date() },
-  { id: "5as651c6a", title: "Test", description: "Description", createdAt: new Date(), updatedAt: new Date() }
-]
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -22,7 +14,6 @@ const DATA: ITask[] = [
 export class AppComponent implements OnInit {
   title = 'angular';
   displayedColumns: string[] = ['position', 'name', 'weight', 'symbol', 'options'];
-  dataSource = DATA;
 
   newTaskTitle: string;
   newTaskDescription: string;
