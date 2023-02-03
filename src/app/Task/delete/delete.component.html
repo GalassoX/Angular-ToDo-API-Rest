@@ -1,1 +1,5 @@
-<p>delete works!</p>
+<h2 mat-dialog-title>You sure to want delete this task?</h2>
+<div mat-dialog-actions>
+    <button mat-raised-button [mat-dialog-close]="false">No</button>
+    <button mat-raised-button color="warn" [mat-dialog-close]="true">Yes</button>
+</div>

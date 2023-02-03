@@ -17,12 +17,14 @@ import { TaskAddComponent } from './Task/add/taskadd.component';
 import { DeleteComponent } from './Task/delete/delete.component';
 import { HttpClientModule } from '@angular/common/http';
 import { TaskService } from './Service/task.service';
+import { EditComponent } from './Task/edit/edit.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     TaskAddComponent,
-    DeleteComponent
+    DeleteComponent,
+    EditComponent
   ],
   imports: [
     HttpClientModule,

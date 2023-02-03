@@ -3,6 +3,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { ITask } from './models/Task';
 import { TaskService } from './Service/task.service';
 import { TaskAddComponent } from './Task/add/taskadd.component';
+import { DeleteComponent } from './Task/delete/delete.component';
 
 const DATA: ITask[] = [
   { id: "5as651c6a", title: "Test", description: "Description", createdAt: new Date(), updatedAt: new Date() },
@@ -32,7 +33,8 @@ export class AppComponent implements OnInit {
   ngOnInit() {
     this.service.getTasks()
       .subscribe(data => {
-        this.data = data.map(d => ({
+        if (!data.body) return;
+        this.data = data.body.map(d => ({
           ...d,
           createdAt: new Date(d.createdAt),
           updatedAt: new Date(d.updatedAt)
@@ -68,11 +70,22 @@ export class AppComponent implements OnInit {
     });
   }
 
-  editTask() {
+  editTask(id: string) {
 
   }
 
-  deleteTask() {
+  deleteTask(id: string) {
+    const dialogRef = this.dialog.open(DeleteComponent);
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (!result) return;
+
+      this.service.deleteTask(id).subscribe(result => {
+        if (result.status === 200) {
+          window.location.reload();
+        }
+      });
+    });
 
   }
 }
