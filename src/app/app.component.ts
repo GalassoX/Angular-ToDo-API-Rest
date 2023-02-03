@@ -47,10 +47,8 @@ export class AppComponent implements OnInit {
 
       if (!created) return;
       created.subscribe(() => {
-        window.location.reload();
+        this.fetchTasks();
       });
-
-      console.log(created);
     });
   }
 
@@ -82,7 +80,7 @@ export class AppComponent implements OnInit {
 
       this.service.deleteTask(id).subscribe(result => {
         if (result.status === 200) {
-          window.location.reload();
+          this.fetchTasks();
         }
       });
     });
